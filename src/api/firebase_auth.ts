@@ -31,4 +31,13 @@ function register(email: string, password: string) {
   });
 }
 
-export { register };
+function getCurrentUser() {
+  const auth = getAuth();
+  if (auth.currentUser !== null){
+    return auth.currentUser.email;
+  } else {
+    return null;
+  }
+}
+
+export { register , getCurrentUser};
