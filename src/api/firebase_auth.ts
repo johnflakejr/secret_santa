@@ -1,4 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
 
@@ -23,11 +24,21 @@ function register(email: string, password: string) {
   .then((userCredential) => {
     const user = userCredential.user;
     alert('Successfully registered! Please login.');
-    return true;
   })
   .catch((error) => {
     console.log(error.message);
-    return false;
+  });
+}
+
+function login(email: string, password: string) {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    alert('Successfully logged in!');
+  })
+  .catch((error) => {
+    console.log(error.message);
   });
 }
 
@@ -40,4 +51,8 @@ function getCurrentUser() {
   }
 }
 
-export { register , getCurrentUser};
+function logout() {
+
+}
+
+export { register , login, getCurrentUser};
